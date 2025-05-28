@@ -108,4 +108,3 @@ rgb_minimum_distance|   5|     10000|    1000|0.04771354|  PASSED
       rgb_lagged_sum|   5|   1000000|     100|0.54443223|  PASSED  
       rgb_lagged_sum|   6|   1000000|     100|0.76195523|  PASSED  
 ```
-```
