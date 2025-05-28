@@ -1,10 +1,18 @@
-use statrs::distribution::{Discrete, Poisson};
-use statrs::prec;
-use statrs::statistics::Distribution;
+use std::fs::File;
+use std::io::{BufWriter, Write};
 
-fn main() {
-    let n = Poisson::new(1.0).unwrap();
-    assert_eq!(n.mean().unwrap(), 1.0);
-    assert!(prec::almost_eq(n.pmf(1), 0.367879441171442, 1e-15));
-    println!("Tests ran");
+const N: u128 = 10_000_000_000;
+
+fn main() -> std::io::Result<()> {
+    let file = File::create("output.bin")?;
+    let mut writer = BufWriter::new(file);
+    let mut x: u64 = 10442988001049997600;
+    for _ in 1..N {
+        x ^= x >> 12;
+        x ^= x << 25;
+        x ^= x >> 27;
+        x = x.wrapping_mul(0x2545F4914F6CDD1Du64);
+        writer.write_all(&x.to_ne_bytes())?;
+    }
+    Ok(())
 }
